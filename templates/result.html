@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>JobShield AI - Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+    <div class="container-fluid main-container">
+
+        <header class="top-navbar">
+
+            <div class="logo-section">
+                <img src="{{ url_for('static', filename='logo.png') }}" class="logo-img">
+
+                <h1>
+                    <span style="color:#00bf63;">JobShield</span>AI
+                </h1>
+            </div>
+
+            <div class="nav-buttons">
+
+                <button onclick="window.location.href='/'">
+                    Home
+                </button>
+
+                <button onclick="window.location.href='/scam-checker'">
+                    Scam Checker
+                </button>
+
+            </div>
+
+        </header>
+
+        <h3 class="page-title">
+            Resume Analysis Result
+        </h3>
+        <div class="steps">
+            <div class="step completed">Step 1: Add Resume/CV</div>
+            <div class="step completed">Step 2: Add Job Description</div>
+            <div class="step active">Step 3: Analyze</div>
+        </div>
+        <main class="container">
+
+            <!-- SCORE -->
+            <div class="result-header">
+                <h2>Match Score</h2>
+                <div class="progress-wrapper">
+
+                    <div class="progress-ring">
+                        <svg width="220" height="220">
+
+                            <circle class="progress-bg" cx="110" cy="110" r="90">
+                            </circle>
+
+                            <circle class="progress-bar" cx="110" cy="110" r="90" style="--score: {{ match_score }}">
+                            </circle>
+
+                        </svg>
+
+                        <div class="progress-text">
+                            {{ match_score }}%
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- MESSAGE -->
+            <div class="result-message">
+
+                {% if match_score < 40 %} 
+                    <h3 style="color:red;">
+                        <i class="fa-solid fa-award"></i>
+                        Poor Match
+                    </h3>
+                    {% elif match_score < 70 %}
+                        <h3 style="color:orange;">
+                            <i class="fa-solid fa-award"></i>
+                            Medium Match
+                        </h3>
+                        {% else %}
+                        <h3 style="color:#00bf63;">
+                            <i class="fa-solid fa-award"></i>
+                            Strong Match
+                        </h3>
+                        {% endif %}
+            </div>
+
+
+
+            <!-- SKILLS ROW -->
+            <div class="skills-row">
+
+                <!-- MATCHED -->
+                <div class="job-matches">
+                    <h3>
+                        <i class="fa-solid fa-circle-check"></i>
+                        Matched Skills
+                    </h3>
+
+                    <div class="skills-container">
+
+                        {% if skill_data is defined and skill_data.matched %}
+
+                        {% for s in skill_data.matched %}
+                        <span class="skill-badge matched-badge">
+                            {{ s }}
+                        </span>
+                        {% endfor %}
+
+                        {% else %}
+
+                        <p>No matched skills found</p>
+
+                        {% endif %}
+
+                    </div>
+                </div>
+
+                <!-- MISSING -->
+                <div class="job-matches">
+                    <h3>
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        Missing Skills
+                    </h3>
+
+                    <div class="skills-container">
+
+                        {% if skill_data is defined and skill_data.missing %}
+
+                        {% for s in skill_data.missing %}
+                        <span class="skill-badge missing-badge">
+                            {{ s }}
+                        </span>
+                        {% endfor %}
+
+                        {% else %}
+
+                        <p>No missing skills found</p>
+
+                        {% endif %}
+
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- RESUME FEEDBACK -->
+            <div class="job-matches">
+                <h3>
+                    <i class="fa-solid fa-file-lines"></i>
+                    Resume Feedback
+                </h3>
+
+                <ul class="skill-list">
+                    {% if feedback %}
+                    {% for f in feedback %}
+                    <li>{{ f }}</li>
+                    {% endfor %}
+                    {% else %}
+                    <li>No feedback generated</li>
+                    {% endif %}
+                </ul>
+            </div>
+
+            <!-- RESUME + JD -->
+            <div class="resume-comparison">
+
+                <div class="resume-section">
+                    <h4>Resume</h4>
+                    <div class="content-box">{{ resume }}</div>
+                </div>
+
+                <div class="resume-section">
+                    <h4>Job Description</h4>
+                    <div class="content-box">{{ jd }}</div>
+                </div>
+
+            </div>
+
+
+
+            <!-- BUTTONS -->
+            <div class="actions">
+                <button onclick="window.location.href='/download-report'">Download Report</button>
+                <button onclick="window.location.href='/'">Analyze Again</button>
+                <button onclick="window.location.href='/scam-checker'">Scam Check</button>
+            </div>
+
+        </main>
+
+        <footer>
+            <p>JobShield AI © 2026</p>
+        </footer>
+
+    </div>
+
+</body>
+
+</html>

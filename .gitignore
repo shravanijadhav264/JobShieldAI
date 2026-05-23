@@ -1,0 +1,10 @@
+venv/
+__pycache__/
+*.pyc
+
+*.pkl
+*.log
+model/
+uploads/
+trained_models/
+report.pdf
