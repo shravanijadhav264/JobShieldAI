@@ -10,7 +10,7 @@ model = SentenceTransformer('all-MiniLM-L6-v2')
 
 # ---------------- DATA ----------------
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-jobs_path = os.path.join(BASE_DIR, "dataset", "jobs.csv")
+jobs_path = os.path.join(BASE_DIR, "jobs.csv")
 
 jobs_df = pd.read_csv(jobs_path)
 

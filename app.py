@@ -238,4 +238,4 @@ def analyze_scam():
 if __name__ == "__main__":
     os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
     print("Starting JobShield AI...")
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=7860)
