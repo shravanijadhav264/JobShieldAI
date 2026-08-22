@@ -195,7 +195,7 @@ The system identifies relevant keywords and skills and uses text similarity or e
 ### 1. Clone the Repository
 
 ```bash
-git clone <your-github-repository-url>
+git clone <(https://github.com/shravanijadhav264/JobShieldAI)>
 ```
 
 ```bash
