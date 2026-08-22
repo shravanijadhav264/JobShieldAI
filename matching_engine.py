@@ -10,8 +10,7 @@ model = SentenceTransformer('all-MiniLM-L6-v2')
 
 # ---------------- DATA ----------------
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-jobs_path = os.path.join(BASE_DIR, "jobs.csv")
-
+jobs_path = os.path.join(BASE_DIR, "dataset", "jobs.csv")
 jobs_df = pd.read_csv(jobs_path)
 
 jobs_df["title"] = jobs_df["title"].astype(str)
@@ -125,12 +124,12 @@ def get_top_job_matches(resume_text):
 
     for i in top_indices:
 
-        title = str(jobs_df.iloc[i]["title"])
-        title = " ".join(title.split()[:3])
+    title = jobs_df.iloc[i]["title"]
+    title = " ".join(title.split()[:3])
 
-        results.append({
-            "title": title,
-            "match": round(float(scores[i]) * 100, 2)
-        })
+    results.append({
+        "title": title,
+        "match": round(float(scores[i]) * 100, 2)
+    })
 
     return results
